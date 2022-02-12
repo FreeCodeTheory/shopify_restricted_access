@@ -1,0 +1,31 @@
+<!-- This is a part of the theme.liquid file include into the PRESTIGE Theme -->
+
+<div class="PageContainer">
+
+  <!-- I want to show the announcement bar to every user even if they're not connected or registered -->
+  {% section 'announcement' %}
+    
+    <!-- The follwing part will be visible to every registered user AND every registered user who has the 'Pro' tag. That give me the opportunity to accept or not a registration on a Shopify Store -->
+    {% if customer and customer.tags contains 'Pro' %}
+
+      {% section 'header' %}
+      <main id="main" role="main">
+        {{ content_for_layout }}
+      </main>
+      {% section 'footer' %}
+      
+        {% elsif template contains 'customers/reset_password' %}
+          {% section 'main-customers-reset-password' %}
+
+        {% elsif template contains 'customers/activate_account' %}
+        {% section 'main-customers-activate-account' %}		
+
+            <!-- Any user (registered or not) will see a landing page with a login form (has account) and a registration form -->
+            {% else %}
+              <img src="/your-image"
+                alt="image"
+                style="width: 15%; display: block; margin: 5% auto 0 auto;">
+              {% section 'main-customers-login' %}
+              {% section 'main-customers-register' %}
+    {% endif %}
+</div>
